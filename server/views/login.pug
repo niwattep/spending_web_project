@@ -1,0 +1,43 @@
+html
+    head
+        title Login
+        link(rel='stylesheet', href='https://bootswatch.com/cosmo/bootstrap.min.css')
+    body
+        //navbar
+        nav(class = "navbar navbar-default")
+            div(class = "container-fluid")
+                div(class = "navbar-header")
+                
+            div(class = "collapse navbar-collapse" id="bs-example-navbar-collapse-1")
+                ul(class="nav navbar-nav")
+                    li(class = "navbar-brand") Spending Management
+                    li(class="active") 
+                        a(href="/") Home 
+                        span(class="sr-only")(current)
+                ul(class="nav navbar-nav navbar-right")
+                    li 
+                        a(href="/login") Login
+                    li
+                        a(href="/register") Register
+
+        //Login form
+        div(class="container")
+            div(class = "row")
+                div(class="span0 offset10")
+                    form(class="form-horizontal" action="/login", method="POST")
+                        legend Login
+                        div(class="form-group")
+                            label(class="col-lg-2 control-label" for="username") Username
+                            div(class="col-lg-4")
+                                input(class="form-control" id="username" type="text" name="username" placeholder="Username") 
+                        div(class="form-group")
+                            label(class="col-lg-2 control-label" for="Password") Password
+                            div(class="col-lg-4")
+                                input(class="form-control" id="password" type="password" name="password" placeholder="Password") 
+                        div(class="col-lg-10 col-lg-offset-2")
+                            button(type="submit" class="btn btn-primary") Submit
+
+
+
+ 
+        

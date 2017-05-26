@@ -1,0 +1,37 @@
+html
+    head
+        title Spending Management
+        link(rel='stylesheet', href='https://bootswatch.com/cosmo/bootstrap.min.css')
+    body
+        //navbar
+        nav(class = "navbar navbar-default")
+            div(class = "container-fluid")
+                div(class = "navbar-header")
+                
+            div(class = "collapse navbar-collapse" id="bs-example-navbar-collapse-1")
+                ul(class="nav navbar-nav")
+                    li(class = "navbar-brand") Spending Management
+                    li(class="active") 
+                        a(href="/") Home 
+                        span(class="sr-only")
+                ul(class="nav navbar-nav navbar-right")
+                    li 
+                        a(href="/login") Login
+                    li
+                        a(href="/register") Register
+        //Container
+        div(class="container")
+            div(class = "row")
+                div(class="span0 offset3")
+                    div(class="jumbotron" style="background:white")
+                        h1        Spending Management App
+                        p         Simplest way to manage personal finances. 
+                        p         Because money matters.
+                        p
+                            a(class="btn btn-primary btn-lg" href="/login") Login 
+                            | #{' '}
+                            a(class="btn btn-primary btn-lg" href="/register") Register
+
+
+                        
+                

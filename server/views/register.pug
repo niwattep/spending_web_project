@@ -1,0 +1,51 @@
+html
+    head
+        title Registration
+        link(rel='stylesheet', href='https://bootswatch.com/cosmo/bootstrap.min.css')
+       
+    body
+        //navbar
+        nav(class = "navbar navbar-default")
+            div(class = "container-fluid")
+                div(class = "navbar-header")
+                
+            div(class = "collapse navbar-collapse" id="bs-example-navbar-collapse-1")
+                ul(class="nav navbar-nav")
+                    li(class = "navbar-brand") Spending Management
+                    li(class="active") 
+                        a(href="/") Home 
+                        span(class="sr-only")(current)
+                ul(class="nav navbar-nav navbar-right")
+                    li 
+                        a(href="/login") Login
+                    li
+                        a(href="/register") Register
+        //Register form
+        div(class="container")
+            div(class = "row")
+                div(class="span0 offset10")
+                    form(class="form-horizontal" action="/register" method="POST")
+                        legend Register
+                        div(class="form-group")
+                            label(class="col-lg-2 control-label" for="name") Name
+                            div(class="col-lg-4")
+                                input(class="form-control" id="rname" type="text" name="name" placeholder="Name") 
+                        div(class="form-group")
+                            label(class="col-lg-2 control-label" for="Email") Email
+                            div(class="col-lg-4")
+                                input(class="form-control" id="Email" type="text" name="email" placeholder="Email") 
+                        div(class="form-group")
+                            label(class="col-lg-2 control-label" for="birthday") Date of Birth
+                            div(class="col-lg-4")
+                                input(class="form-control" id="birthday" type="date" name="birthday" placeholder="yyyy-MM-dd" min="1900-01-01" max="2017-12-31")
+                        div(class="form-group")
+                            label(class="col-lg-2 control-label" for="username") Username
+                            div(class="col-lg-4")
+                                input(class="form-control" id="username" type="text" name="username" placeholder="Username") 
+                        div(class="form-group")
+                            label(class="col-lg-2 control-label" for="Password") Password
+                            div(class="col-lg-4")
+                                input(class="form-control" id="Password" type="password" name="password" placeholder="Password") 
+                       
+                        div(class="col-lg-10 col-lg-offset-2")
+                            button(type="submit" class="btn btn-primary") Submit

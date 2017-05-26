@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' , href='https://bootswatch.com/cosmo/bootstrap.min.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+</head>
+
+<body ng-app="app">
+
+    <!-- navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="navbar-brand"> Spending Management </li>
+                <li class="active">
+                    <a href="#/"> Home </a>
+                    <span class="sr-only"></span>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/logout"> Log Out </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="span0 offset10">
+
+
+                <!-- Main Content -->
+                <ng-view></ng-view>
+
+                <script type="text/ng-template" id="/list.html">
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <a href="#/add" class="btn btn-default btn-lg btn-block"> Add New Transaction</a>
+                        </div>
+                    </div>
+
+                    Search in Category: <input type="text" ng-model="search.category">
+                    <br><br>
+                    <div ng-controller="mainController">
+                        <table class="table table-striped table-hover ">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Category</th>
+                                    <th>Note</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="transaction in account.transactions | filter: search">
+                                    <td> {{ transaction.date | date:"MM/dd/yyyy" }}</td>
+                                    <td>{{ transaction.spendType }}</td>
+                                    <td>{{ transaction.amount | currency: "THB" }}</td>
+                                    <td>{{ transaction.category }}</td>
+                                    <td>"{{ transaction.note}}"</td>
+                                    <td>
+                                        <a href="#/edit/{{ $index }}" class="btn btn-primary btn-xs">Edit</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </div>
+                </script>
+
+                <script type="text/ng-template" id="/add.html">
+                    <div>
+                        <form name="addForm" ng-submit="saveForm()" class="form-horizontal">
+                            <legend> Create a New Transaction </legend>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label" for="spendingType"> Spending Type </label>
+                                <div class="col-lg-10">
+                                    <input type="radio" name="spendType" value="income" ng-model="transaction.spendType">                                    Income
+                                    <input type="radio" name="spendType" value="expense" ng-model="transaction.spendType" checked>                                    Expense
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">  Select Category: </label>
+                                <div class="col-lg-10">
+                                    <input type="text" name="category" ng-model="transaction.category">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label"> Amount: </label>
+                                <div class="col-lg-10">
+                                    <input type="number" name="amount" ng-model="transaction.amount">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label"> Date: </label>
+                                <div class="col-lg-10">
+                                    <input type="date" name="date" placeholder="yyyy-MM-dd" ng-model="transaction.date">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Note: </label>
+                                <div class="col-lg-10">
+                                    <input type="textarea" rows="4" cols="50" placeholder="Note" name="note" ng-model="transaction.note">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-8">
+                                    <button type="reset" class="btn btn-default"><a href="#/">Cancel</a></button>
+                                    <button type="submit" name="submit" value="Submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </script>
+
+                <script type="text/ng-template" id="/edit.html">
+                    <div>
+                        <form name="editForm" ng-submit="saveData()" class="form-horizontal">
+                            <legend> Edit Transaction </legend>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label" for="spendingType"> Spending Type </label>
+                                <div class="col-lg-10">
+                                    <input type="radio" name="spendType" value="income" ng-model="transaction.spendType">                                    Income
+                                    <input type="radio" name="spendType" value="expense" ng-model="transaction.spendType">                                    Expense
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">  Select Category: </label>
+                                <div class="col-lg-10">
+                                    <input type="text" name="category" ng-model="transaction.category">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label"> Amount: </label>
+                                <div class="col-lg-10">
+                                    <input type="number" name="amount" ng-model="transaction.amount">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label"> Date: </label>
+                                <div class="col-lg-10">
+                                    <input type="date" name="date" placeholder="yyyy-MM-dd">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Note: </label>
+                                <div class="col-lg-10">
+                                    <input type="textarea" rows="4" cols="50" placeholder="Note" name="note" ng-model="transaction.note">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-8">
+                                    <button type="reset" class="btn btn-default"><a href="#/">Cancel</a></button>
+                                    <button type="reset" class="btn btn-danger" ng-click="removeData()"><a href="#/">Remove</a></button>
+                                    <button type="submit" name="submit" value="Submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </script>
+
+                <script src="/static/app.js">
+                    var app = angular.module("app", ["ngRoute"]);
+
+                    app.config(["$routeProvider", function ($routeProvider) {
+                        $routeProvider
+                            .when("/", {
+                                templateUrl: "/list.html",
+                                controller: "mainController"
+                            }).when("/add", {
+                                templateUrl: "/add.html",
+                                controller: "addController"
+                            }).when("/edit/:id", {
+                                templateUrl: "/edit.html",
+                                controller: "editController"
+                            });
+                    }]);
+
+                    app.controller("mainController", [
+                        '$scope', "$http",
+                        function ($scope, $http) {
+                            $scope.account = {};
+
+                            $http.get("http://localhost:3000/api/").success(function (data) {
+                                $scope.account = data[0];
+                            }).error(function (res) {
+                                console.log(res);
+                            });
+                        }
+                    ]);
+
+                    app.controller("addController", [
+                        "$scope", "$http",
+                        function ($scope, $http) {
+                            $scope.transaction = {}
+
+                            $scope.saveForm = function () {
+                                $http.post("/api/", $scope.transaction).success(function (res) {
+                                    console.log(res)
+                                    alert(res);
+                                }).error(function (res) {
+                                    console.error(res);
+                                    alert(res);
+                                })
+                            }
+                        }
+                    ])
+
+                    app.controller("editController", [
+                        "$scope", "$http", "$routeParams",
+                        function ($scope, $http, $routeParams) {
+                            $scope.account = {};
+                            $scope.transactions = [];
+                            $scope.transaction = {};
+
+                            $http.get("http://localhost:3000/api/").success(function (data) {
+                                $scope.account = data[0];
+                                console.log($scope.account);
+                                console.log($scope.account.username);
+                                console.log($scope.account.transactions);
+                                $scope.transactions = $scope.account.transactions;
+                                console.log($scope.transactions);
+
+                                $scope.transaction = $scope.transactions[$routeParams.id];
+                                console.log($scope.transaction);
+                            }).error(function (res) {
+                                console.log(res);
+                            });
+
+                            $scope.saveData = function () {
+                                $http.post('/api/' + $scope.transaction._id, $scope.transaction).success(function (res) {
+                                    console.log(res);
+                                    alert(res);
+                                }).error(function (res) {
+                                    console.error(res);
+                                    alert(res);
+                                });
+                            }
+
+                            $scope.removeData = function () {
+                                $http.delete("/api/" + $scope.transaction._id).success(function (res) {
+                                    console.log(res);
+                                    alert(res);
+                                }).error(function (res) {
+                                    console.error(res);
+                                    alert(res);
+                                })
+                            }
+                        }
+                    ]);
+                </script>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
