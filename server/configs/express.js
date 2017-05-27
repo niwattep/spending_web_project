@@ -6,7 +6,7 @@ var passport = require("passport");
 
 var app = express();
 
-app.use("/static", express.static(path.join(__dirname, 'app')));
+app.use("/static", express.static(path.join(__dirname, '../../app')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
