@@ -1,0 +1,49 @@
+<div>
+    <form name="editForm" ng-submit="saveData()" class="form-horizontal">
+        <legend> Edit Transaction </legend>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label" for="spendingType"> Spending Type </label>
+            <div class="col-lg-10">
+                <input type="radio" name="spendType" value="income" ng-model="transaction.spendType"> Income
+                <input type="radio" name="spendType" value="expense" ng-model="transaction.spendType"> Expense
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">  Select Category: </label>
+            <div class="col-lg-10">
+                <input type="text" name="category" ng-model="transaction.category">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label"> Amount: </label>
+            <div class="col-lg-10">
+                <input type="number" name="amount" ng-model="transaction.amount">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label"> Date: </label>
+            <div class="col-lg-10">
+                <input type="date" name="date" placeholder="yyyy-MM-dd">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Note: </label>
+            <div class="col-lg-10">
+                <input type="textarea" rows="4" cols="50" placeholder="Note" name="note" ng-model="transaction.note">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-8">
+                <button type="reset" class="btn btn-default"><a href="#/">Cancel</a></button>
+                <button type="reset" class="btn btn-danger" ng-click="removeData()"><a href="#/">Remove</a></button>
+                <button type="submit" name="submit" value="Submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
